@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+        <!-- title and icon -->
         <Title>GTFO Rando</Title>
-        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
 
+    <!-- css styling -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -60,7 +62,7 @@
 </head>
 <body>
 
-
+    <!-- static text and setting up rando text and images -->
     <h1>GTFO Randomizer</h1>
 
     <div id="loadout">
@@ -93,6 +95,7 @@
     <button id="randomize">Randomize Hell</button>
 
     <script>
+        // All equipment names with images
         const mainWeapons = [
             {
             name: "Pistol",
@@ -322,14 +325,14 @@
             image: "images/spear.png"
             }
         ]
-
+        // randomizer function
     function Rando(array) {
         const index = Math.floor(Math.random() * array.length);
         return array[index];
     }
 
     document.getElementById("randomize").addEventListener("click", function() {
-
+        // Randomizer equipment and sets randomized name and equivalent picture
         const main = Rando(mainWeapons);
         document.getElementById("main-name").textContent = main.name;
         document.getElementById("main-image").src = main.image;
@@ -345,7 +348,7 @@
     });
 
     </script>
-
+    <!-- background video -->
     <video autoplay muted loop id="bgv">
         <source src="video/bgvid.mp4">
     </video>
@@ -353,3 +356,4 @@
 
 
 </html>
+
