@@ -89,7 +89,7 @@
 
     </style>
 </head>
-<body>
+<body onload="preLoadAllImages()">
 
     <!-- static text and setting up rando text and images -->
     <h1 style="margin-top:1.2em">GTFO Randomizer</h1>
@@ -488,6 +488,49 @@
     function Rando(array) {
         const index = Math.floor(Math.random() * array.length);
         return array[index];
+    }
+
+    // PreCache images to prevent stuttering
+    function preLoadAllImages() {
+
+        // list definition as safety precaution
+        let list = [];
+
+        // Fill in entries from existing arrays
+        let validEntryList = [mainWeapons, specialWeapons, tools, melee]
+
+        // Loop over constants containing data
+        for (let i = 0; i < validEntryList.length; i++) {
+            for (let j = 0; j < validEntryList[i].length; j++) {
+
+                // Push into list Array if image string exists
+                if (validEntryList[i][j].image != undefined) {
+                    list.push(validEntryList[i][j].image);
+                }
+
+            }
+        }
+
+        console.log(list);
+        
+        // Load the images and remove them from memory
+        for (let i = 0; i < list.length; i++) {
+
+            let img = new Image();
+
+            // Define load functionality to remove themselves
+            img.onload = function() {
+                let index = list.indexOf(this);
+                if (index  !== -1) {
+                    list.splice(index, 1);
+                }
+            }
+
+            // Set src so they actually load
+            img.src = list[i];
+        }
+
+        console.log("Images were precached");
     }
 
     document.getElementById("randomize").addEventListener("click", function() {
