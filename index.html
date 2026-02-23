@@ -18,20 +18,38 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 30px;
+            gap: 2em;
+            margin-top: 3em;
+            min-height: 35em;
         }
 
         .equipment {
             background-color: #1c1c1c;
-            padding: 20px;
+            padding: 2em;
             border-radius: 10px;
-            width: 200px;
+            min-height: 20em;
+            max-height: 30em;
+            width: 12%;
         }
         
         .equipment img {
             margin-top: 20px;
+            margin-bottom:20px;
             border-radius: 8px;
+            max-width: 80%;
+            min-width: 50%;
+            max-height: 70%;
+            min-height: 20%;
+            justify-content: center;
+        }
+
+        .equipment_topdivider {
+            height:30%
+        }
+
+        .equipment_bottomdivider {
+            margin-bottom: 20px;
+            height:90%;
         }
 
         button {
@@ -74,36 +92,54 @@
 <body>
 
     <!-- static text and setting up rando text and images -->
-    <h1>GTFO Randomizer</h1>
+    <h1 style="margin-top:1.2em">GTFO Randomizer</h1>
 
     <div id="loadout">
     
         <div class="equipment">
-            <h2>Main weapon</h2>
-            <p id="main-name">Not selected</p>
-            <img id="main-image" src="" alt="Main Weapon Image" width="200">
+            <div class="equipment_topdivider">
+                <h2>Main weapon</h2>
+                <p id="main-name">Not selected</p>
+            </div>
+            <div class="equipment_bottomdivider">
+                <img id="main-image" src="" alt="Main Weapon Image" width="200">
+            </div>
         </div>
 
         <div class="equipment">
-            <h2>Special weapon</h2>
-            <p id="special-name">Not selected</p>
-            <img id="special-image" src="" alt="Special Weapon Image" width="200">
+            <div class="equipment_topdivider">
+                <h2>Special weapon</h2>
+                <p id="special-name">Not selected</p>
+            </div>
+            <div class="equipment_bottomdivider">
+                <img id="special-image" src="" alt="Special Weapon Image" width="200">
+            </div>
         </div>
         
         <div class="equipment">
-            <h2>Tool</h2>
-            <p id="tool-name">Not Selected</p>
-            <img id="tool-image" src="" alt="Tool Image" width="200">
+            <div class="equipment_topdivider">
+                <h2>Tool</h2>
+                <p id="tool-name">Not Selected</p>
+            </div>
+            <div class="equipment_bottomdivider">
+                <img id="tool-image" src="" alt="Tool Image" width="200">
+            </div>
         </div>
         
         <div class="equipment">
-            <h2>Melee</h2>
-            <p id="melee-name">Not selected</p>
-            <img id="melee-image" src="" alt="Melee Image" width="200">
+            <div class="equipment_topdivider">
+                <h2>Melee</h2>
+                <p id="melee-name">Not selected</p>
+            </div>
+            <div class="equipment_bottomdivider">
+                <img id="melee-image" src="" alt="Melee Image" width="200">
+            </div>
         </div>
     </div>
     <br>
-    <button id="randomize">Randomize Hell</button>
+    <div style="height:10%">
+        <button id="randomize">Randomize Hell</button>
+    </div>
 
     <!-- rundown randomizer text and dropdown menu-->
     <h1>Rundown Randomizer</h1>
