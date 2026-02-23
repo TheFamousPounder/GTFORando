@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <!-- title and icon -->
+        <Title>GTFO Rando</Title>
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- css styling -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #eee;
+            text-align: center;
+        }
+
+        #loadout {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .equipment {
+            background-color: #1c1c1c;
+            padding: 20px;
+            border-radius: 10px;
+            width: 200px;
+        }
+        
+        .equipment img {
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        button {
+            margin-top: 30px;
+            padding: 10px, 20px;
+            font-size: 24px;
+            background-color: #2a2a2a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+        #bgv {
+        position: fixed;
+        z-index: -1;
+        left: 0px;
+        top: 0px;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- static text and setting up rando text and images -->
+    <h1>GTFO Randomizer</h1>
+
+    <div id="loadout">
+    
+        <div class="equipment">
+            <h2>Main weapon</h2>
+            <p id="main-name">Not selected</p>
+            <img id="main-image" src="" alt="Main Weapon Image" width="200">
+        </div>
+
+        <div class="equipment">
+            <h2>Special weapon</h2>
+            <p id="special-name">Not selected</p>
+            <img id="special-image" src="" alt="Special Weapon Image" width="200">
+        </div>
+        
+        <div class="equipment">
+            <h2>Tool</h2>
+            <p id="tool-name">Not Selected</p>
+            <img id="tool-image" src="" alt="Tool Image" width="200">
+        </div>
+        
+        <div class="equipment">
+            <h2>Melee</h2>
+            <p id="melee-name">Not selected</p>
+            <img id="melee-image" src="" alt="Melee Image" width="200">
+        </div>
+    </div>
+    <br>
+    <button id="randomize">Randomize Hell</button>
+
+    <script>
+        // All equipment names with images
+        const mainWeapons = [
+            {
+            name: "Pistol",
+            image: "images/pistol.png"
+            },
+
+            {
+            name: "Burst Pistol",
+            image: "images/burstpistol.png"
+            },
+
+            {
+            name : "HEL Revolver",
+            image: "images/helrevolver.png"
+            },
+
+            {
+            name: "Machine Pistol",
+            image: "images/machinepistol.png",
+            },
+
+            {
+            name: "HEL Autopistol",
+            image: "images/helautopistol.png"
+            },
+
+            {
+            name: "Bullup Rifle",
+            image: "images/bullup.png"
+            },
+
+            {
+            name: "SMG",
+            image: "images/smg.png"
+            },
+            
+            {
+            name: "PDW",
+            image: "images/pdw.png"
+            },
+
+            {
+            name: "Heavy SMG",
+            image: "images/pdw.png"
+            },
+
+            {
+            name: "Carbine",
+            image: "images/carbine.png"
+            },
+
+            {
+            name: "DMR",
+            image: "images/dmr.png"
+            },
+
+            {
+            name: "Double Tap Rifle",
+            image: "images/doubletaprifle.png"
+            },
+
+            {
+            name: "Assault Rifle",
+            image: "images/assaultrifle.png"
+            },
+
+            {
+            name: "Burst Rifle",
+            image: "images/burstrifle.png"
+            },
+
+            {
+            name: "Rifle",
+            image: "images/rifle.png"
+            },
+
+            {
+            name: "Sawed-off Shotgun",
+            image: "images/sawedoff.png"
+            },
+
+            {
+            name: "HEL Shotgun",
+            image: "images/helshotgun.png"
+            },
+
+            {
+            name: "Slug Shotgun (Sluggy Wuggy)",
+            image: "images/sluggy.png"
+            }
+        ];
+        const specialWeapons = [
+            {
+            name: "Heavy Assault Rifle",
+            image: "images/heavyassault.png"
+            },
+            {
+            name: "Short Rifle",
+            image: "images/short.png"
+            },
+            {
+            name: "Shotgun",
+            image: "images/shotgun.png"
+            },
+            {
+            name: "Combat Shotgun",
+            image: "images/combatshotgun.png"
+            },
+            {
+            name: "Scattergun",
+            image: "images/scatter.png"
+            },
+            {
+            name: "Choke Mod Shotgun",
+            image: "images/chokemod.png"
+            },
+            {
+            name: "Revolver",
+            image: "images/revolver.png"
+            },
+            {
+            name: "Machine Gun V",
+            image: "images/machinegunv.png"
+            },
+            {
+            name: "Machine Gun XII",
+            image: "images/machinegunxii.png"
+            },
+            {
+            name: "Burst Cannon",
+            image: "images/burstcannon.png"
+            },
+            {
+            name: "HEL Gun",
+            image: "images/helgun.png"
+            },
+            {
+            name: "High Cal Pistol",
+            image: "images/highcal.png"
+            },
+            {
+            name: "Precision Rifle",
+            image: "images/precisionrifle.png"
+            },
+            {
+            name: "Sniper",
+            image: "images/sniper.png"
+            },
+            {
+            name: "HEL Rifle",
+            image: "images/helrifle.png"
+            },
+        ]
+        const tools = [
+            {
+            name: "Burst Sentry",
+            image: "images/burstsentry.png"
+            },
+            {
+            name: "Shotgun Sentry",
+            image: "images/shotgunsentry.png"
+            },
+            {
+            name: "Sniper Sentry",
+            image: "images/sniper.png"
+            },
+            {
+            name: "HEL Auto Sentry",
+            image: "images/helautosentry.png"
+            },
+            {
+            name: "Bio Tracker",
+            image: "images/bio.png"
+            },
+            {
+            name: "C-Foam Launcher",
+            image: "images/cfoam.png"
+            },
+            {
+            name: "Mine Deployer",
+            image: "images/mine.png"
+            }
+        ]
+        const melee = [
+            {
+            name: "Sledgehammer (Santonian HDH)",
+            image: "images/sledge.png"
+            },
+            {
+            name: "Sledgehammer (Kovac Sledgehammer)",
+            image: "images/sledge.png"
+            },
+            {
+            name: "Sledgehammer (Omneco Maul)",
+            image: "images/sledge.png"
+            },
+            {
+            name: "Sledgehammer (MACO Gavel)",
+            image: "images/sledge.png"
+            },
+            {
+            name: "Sledgehammer (Santonian Mallet)",
+            image: "images/sledge.png"
+            },
+            {
+            name: "Knife (Mastaba Fixed Blade)",
+            image: "images/knife.png"
+            },
+            {  
+            name: "Knife (Wox Compact)",
+            image: "images/knife.png"
+            },
+            {
+            name: "Bat (Kovac Peacekeeper)",
+            image: "images/bat.png"
+            },
+            {
+            name: "Bat (Attroc Titanium)",
+            image: "images/bat.png"
+            },
+            {
+            name: "Spear (MACO Drillhead)",
+            image: "images/spear.png"
+            },
+            {
+            name: "Spear (IsoCo Stinger)",
+            image: "images/spear.png"
+            }
+        ]
+        // randomizer function
+    function Rando(array) {
+        const index = Math.floor(Math.random() * array.length);
+        return array[index];
+    }
+
+    document.getElementById("randomize").addEventListener("click", function() {
+        // Randomizer equipment and sets randomized name and equivalent picture
+        const main = Rando(mainWeapons);
+        document.getElementById("main-name").textContent = main.name;
+        document.getElementById("main-image").src = main.image;
+        const spec = Rando(specialWeapons);
+        document.getElementById("special-name").textContent = spec.name;
+        document.getElementById("special-image").src = spec.image;
+        const tool = Rando(tools);
+        document.getElementById("tool-name").textContent = tool.name;
+        document.getElementById("tool-image").src = tool.image;
+        const maylay = Rando(melee);
+        document.getElementById("melee-name").textContent = maylay.name;
+        document.getElementById("melee-image").src = maylay.image;  
+    });
+
+    </script>
+    <!-- background video -->
+    <video autoplay muted loop id="bgv">
+        <source src="video/bgvid.mp4">
+    </video>
+</body>
+
+
+</html>
+
