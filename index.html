@@ -87,6 +87,17 @@
         opacity: 5%;
         }
 
+        #rundown-image {
+            justify-items: center;
+            min-width: 20em;
+            max-width: 50em;
+            min-height: 20em;
+        }
+
+        #rundown-screen {
+            margin-top: 5em;
+        }
+
     </style>
 </head>
 <body onload="preLoadAllImages()">
@@ -142,9 +153,10 @@
     </div>
 
     <!-- rundown randomizer text and dropdown menu-->
-    <h1>Rundown Randomizer</h1>
+     <div id="rundown-screen">
+        <h1>Rundown Randomizer</h1>
 
-    <div id="rundown-screen">
+    
         <label for="rundown-select">Rundown</label>
         <br><br>
 
@@ -497,7 +509,7 @@
         let list = [];
 
         // Fill in entries from existing arrays
-        let validEntryList = [mainWeapons, specialWeapons, tools, melee]
+        let validEntryList = [mainWeapons, specialWeapons, tools, melee, rundowns]
 
         // Loop over constants containing data
         for (let i = 0; i < validEntryList.length; i++) {
@@ -512,7 +524,7 @@
         }
 
         console.log(list);
-        
+
         // Load the images and remove them from memory
         for (let i = 0; i < list.length; i++) {
 
