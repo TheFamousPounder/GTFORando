@@ -66,6 +66,14 @@
         button:hover {
             background-color: #444;
         }
+        select {
+            padding: 8px;
+            font-size: 16px;
+            background-color: #2a2a2a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
 
         #bgv {
         position: fixed;
@@ -76,7 +84,9 @@
         height: 100vh;
         object-fit: cover;
         pointer-events: none;
+        opacity: 5%;
         }
+
     </style>
 </head>
 <body>
@@ -131,8 +141,35 @@
         <button id="randomize">Randomize Hell</button>
     </div>
 
+    <!-- rundown randomizer text and dropdown menu-->
+    <h1>Rundown Randomizer</h1>
+
+    <div id="rundown-screen">
+        <label for="rundown-select">Rundown</label>
+        <br><br>
+
+        <select id="rundown-select">
+            <option value="all">All rundowns</option>
+            <option value="1">Rundown 1</option>
+            <option value="2">Rundown 2</option>
+            <option value="3">Rundown 3</option>
+            <option value="4">Rundown 4</option>
+            <option value="5">Rundown 5</option>
+            <option value="6">Rundown 6</option>
+            <option value="7">Rundown 7</option>
+            <option value="8">Rundown 8</option>
+        </select>
+        <br><br>
+
+        <button id="rundown-randomize">Randomize Rundown</button>
+        <!-- place holder until randomized-->
+        <h2 id="rundown-result">Not selected</h2>
+        <img id="rundown-image" src="" width="300">
+        </div>
+    </div>
+    
     <script>
-        // All equipment names with images
+        // All equipment names and rundowns with images 
         const mainWeapons = [
             {
             name: "Pistol",
@@ -362,6 +399,91 @@
             image: "images/spear.png"
             }
         ]
+        const rundowns = [
+            { code: "R1A1", rundown: 1, image: "images/r1a1.png" },
+            { code: "R1B1", rundown: 1, image: "images/r1b1.png" },
+            { code: "R1B2", rundown: 1, image: "images/r1b2.png" },
+            { code: "R1C1", rundown: 1, image: "images/r1c1.png" },
+            { code: "R1C2", rundown: 1, image: "images/r1c2.png" },
+            { code: "R1D1", rundown: 1, image: "images/r1d1.png" },
+            { code: "R2A1", rundown: 2, image: "images/r2a1.png" },
+            { code: "R2B1", rundown: 2, image: "images/r2b1.png" },
+            { code: "R2B2", rundown: 2, image: "images/r2b2.png" },
+            { code: "R2B3", rundown: 2, image: "images/r2b3.png" },
+            { code: "R2B4", rundown: 2, image: "images/r2b4.png" },
+            { code: "R2C1", rundown: 2, image: "images/r2c1.png" },
+            { code: "R2C2", rundown: 2, image: "images/r2c2.png" },
+            { code: "R2D1", rundown: 2, image: "images/r2d1.png" },
+            { code: "R2D2", rundown: 2, image: "images/r2d2.png" },
+            { code: "R2E1", rundown: 2, image: "images/r2e1.png" },
+            { code: "R3A1", rundown: 3, image: "images/r3a1.png" },
+            { code: "R3A2", rundown: 3, image: "images/r3a2.png" },
+            { code: "R3A3", rundown: 3, image: "images/r3a3.png" },
+            { code: "R3B1", rundown: 3, image: "images/r3b1.png" },
+            { code: "R3B2", rundown: 3, image: "images/r3b2.png" },
+            { code: "R3C1", rundown: 3, image: "images/r3c1.png" },
+            { code: "R3D1", rundown: 3, image: "images/r3d1.png" },
+            { code: "R4A1", rundown: 4, image: "images/r4a1.png" },
+            { code: "R4A2", rundown: 4, image: "images/r4a2.png" },
+            { code: "R4A3", rundown: 4, image: "images/r4a3.png" },
+            { code: "R4B1", rundown: 4, image: "images/r4b1.png" },
+            { code: "R4B2", rundown: 4, image: "images/r4b2.png" },
+            { code: "R4B3", rundown: 4, image: "images/r4b3.png" },
+            { code: "R4C1", rundown: 4, image: "images/r4c1.png" },
+            { code: "R4C2", rundown: 4, image: "images/r4c2.png" },
+            { code: "R4C3", rundown: 4, image: "images/r4c3.png" },
+            { code: "R4D1", rundown: 4, image: "images/r4d1.png" },
+            { code: "R4D2", rundown: 4, image: "images/r4d2.png" },
+            { code: "R4E1", rundown: 4, image: "images/r4e1.png" },
+            { code: "R5A1", rundown: 5, image: "images/r5a1.png" },
+            { code: "R5A2", rundown: 5, image: "images/r5a2.png" },
+            { code: "R5A3", rundown: 5, image: "images/r5a3.png" },
+            { code: "R5B1", rundown: 5, image: "images/r5b1.png" },
+            { code: "R5B2", rundown: 5, image: "images/r5b2.png" },
+            { code: "R5B3", rundown: 5, image: "images/r5b3.png" },
+            { code: "R5B4", rundown: 5, image: "images/r5b4.png" },
+            { code: "R5C1", rundown: 5, image: "images/r5c1.png" },
+            { code: "R5C2", rundown: 5, image: "images/r5c2.png" },
+            { code: "R5C3", rundown: 5, image: "images/r5c3.png" },
+            { code: "R5D1", rundown: 5, image: "images/r5d1.png" },
+            { code: "R5D2", rundown: 5, image: "images/r5d2.png" },
+            { code: "R5E1", rundown: 5, image: "images/r5e1.png" },
+            { code: "R6A1", rundown: 6, image: "images/r6a1.png" },
+            { code: "R6AX", rundown: 6, image: "images/r6ax.png" },
+            { code: "R6B1", rundown: 6, image: "images/r6b1.png" },
+            { code: "R6B2", rundown: 6, image: "images/r6b2.png" },
+            { code: "R6BX", rundown: 6, image: "images/r6bx.png" },
+            { code: "R6C1", rundown: 6, image: "images/r6c1.png" },
+            { code: "R6C2", rundown: 6, image: "images/r6c2.png" },
+            { code: "R6C3", rundown: 6, image: "images/r6c3.png" },
+            { code: "R6CX", rundown: 6, image: "images/r6cx.png" },
+            { code: "R6D1", rundown: 6, image: "images/r6d1.png" },
+            { code: "R6D2", rundown: 6, image: "images/r6d2.png" },
+            { code: "R6D3", rundown: 6, image: "images/r6d3.png" },
+            { code: "R6D4", rundown: 6, image: "images/r6d4.png" },
+            { code: "R7A1", rundown: 7, image: "images/r7a1.png" },
+            { code: "R7B1", rundown: 7, image: "images/r7b1.png" },
+            { code: "R7B2", rundown: 7, image: "images/r7b2.png" },
+            { code: "R7B3", rundown: 7, image: "images/r7b3.png" },
+            { code: "R7C1", rundown: 7, image: "images/r7c1.png" },
+            { code: "R7C2", rundown: 7, image: "images/r7c2.png" },
+            { code: "R7C3", rundown: 7, image: "images/r7c3.png" },
+            { code: "R7D1", rundown: 7, image: "images/r7d1.png" },
+            { code: "R7D2", rundown: 7, image: "images/r7d2.png" },
+            { code: "R7E1", rundown: 7, image: "images/r7e1.png" },
+            { code: "R8A1", rundown: 8, image: "images/r8a1.png" },
+            { code: "R8A2", rundown: 8, image: "images/r8a2.png" },
+            { code: "R8B1", rundown: 8, image: "images/r8b1.png" },
+            { code: "R8B2", rundown: 8, image: "images/r8b2.png" },
+            { code: "R8B3", rundown: 8, image: "images/r8b3.png" },
+            { code: "R8B4", rundown: 8, image: "images/r8b4.png" },
+            { code: "R8C1", rundown: 8, image: "images/r8c1.png" },
+            { code: "R8C2", rundown: 8, image: "images/r8c2.png" },
+            { code: "R8D1", rundown: 8, image: "images/r8d1.png" },
+            { code: "R8D2", rundown: 8, image: "images/r8d2.png" },
+            { code: "R8E1", rundown: 8, image: "images/r8e1.png" },
+            { code: "R8E2", rundown: 8, image: "images/r8e2.png" }
+        ]
         // randomizer function
     function Rando(array) {
         const index = Math.floor(Math.random() * array.length);
@@ -383,6 +505,24 @@
         document.getElementById("melee-name").textContent = maylay.name;
         document.getElementById("melee-image").src = maylay.image;  
     });
+
+    document.getElementById("rundown-randomize").addEventListener("click", function() {
+
+    const selected = document.getElementById("rundown-select").value;
+
+    let filtered;
+
+    if (selected === "all") {
+        filtered = rundowns;
+    } else {
+        filtered = rundowns.filter(r => r.rundown == selected);
+    }
+
+    const result = Rando(filtered);
+
+    document.getElementById("rundown-result").textContent = result.code;
+    document.getElementById("rundown-image").src = result.image;
+});
 
     </script>
     <!-- background video -->
