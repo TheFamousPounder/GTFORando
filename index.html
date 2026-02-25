@@ -98,10 +98,28 @@
             margin-top: 5em;
         }
 
+        /* #top {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #1a1a1a;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        z-index: 1000;
+        } */
+
     </style>
 </head>
 <body onload="preLoadAllImages()">
 
+    <div id="top">
+        <button onclick="showPage('rando')">Randomizer</button>
+        <button onclick="showPage('settings')">Settings</button>
+    </div>
+    <div id="rando">
     <!-- static text and setting up rando text and images -->
     <h1 style="margin-top:1.2em">GTFO Randomizer</h1>
 
@@ -179,7 +197,26 @@
         <img id="rundown-image" src="" width="300">
         </div>
     </div>
-    
+
+        <!-- background video -->
+    <video autoplay muted loop id="bgv">
+        <source src="video/bgvid.mp4">
+    </video>
+    <div id="settings" style="display:none; margin-top: 80px;">
+        <h1>Deselect weapons</h1>
+
+        <h1>Main weapoons</h1>
+        <div id="main-weapon-settings"></div>
+        <h1>Special Weapons</h1>
+        <div id="special-weapon-settings"></div>
+        <h1>Tools</h1>
+        <div id="tool-settings"></div>
+        <h1>Melee</h1>
+        <h6>if you really hate sledge or something I guess ?</h6>
+        <div id="melee-settings"></div>
+
+        <button onclick="showPage('rando')">Randomizer</button>
+    </div>
     <script>
         // All equipment names and rundowns with images 
         const mainWeapons = [
@@ -269,10 +306,11 @@
             },
 
             {
-            name: "Sluggy Wuggy (Slug Shotgun",
+            name: "Sluggy Wuggy (Slug Shotgun)",
             image: "images/sluggy.png"
             }
         ];
+        let enableMainWeapons = new Set(mainWeapons.map(w => w.name));
         const specialWeapons = [
             {
             name: "Heavy Assault Rifle",
@@ -335,6 +373,7 @@
             image: "images/helrifle.png"
             },
         ]
+        let enableSpecialWeapons = new Set(specialWeapons.map(w => w.name));
         const tools = [
             {
             name: "Burst Sentry",
@@ -365,6 +404,8 @@
             image: "images/mine.png"
             }
         ]
+        let enableTools = new Set(tools.map(w => w.name));
+
         const melee = [
             {
             name: "Sledgehammer (Santonian HDH)",
@@ -411,6 +452,8 @@
             image: "images/spear.png"
             }
         ]
+        let enableMelee = new Set(melee.map(w => w.name));
+
         const rundowns = [
             { code: "R1A1", rundown: 1, image: "images/r1a1.png" },
             { code: "R1B1", rundown: 1, image: "images/r1b1.png" },
@@ -547,16 +590,57 @@
 
     document.getElementById("randomize").addEventListener("click", function() {
         // Randomizer equipment and sets randomized name and equivalent picture
-        const main = Rando(mainWeapons);
+        const mainChange = mainWeapons.filter(w => 
+            enableMainWeapons.has(w.name)
+        );
+        // check to make sure something is selected, error if nothing is selected
+        if (mainChange.length === 0) {
+            alert("No Main Weapons selected, dummy. Leave at least one enabled if you don't want to randomize main.")
+            return;
+        } 
+        const main = Rando(mainChange);
+
         document.getElementById("main-name").textContent = main.name;
         document.getElementById("main-image").src = main.image;
-        const spec = Rando(specialWeapons);
+
+        const specialChange = specialWeapons.filter(w =>
+            enableSpecialWeapons.has(w.name)
+        );
+
+        if (specialChange.length === 0) {
+            alert("No Special Weapons selected, dummy. Leave at least one enabled if you don't want to randomize Special")
+            return;
+        }
+        const spec = Rando(specialChange)
+
         document.getElementById("special-name").textContent = spec.name;
         document.getElementById("special-image").src = spec.image;
-        const tool = Rando(tools);
+
+        const toolChange = tools.filter(w =>
+            enableTools.has(w.name)
+        );
+        
+        if (toolChange.length === 0) {
+            alert("No tool selectedm dummy. Leave at least one enabled if you don't want to randomize tool.")
+            return;
+        }
+
+        const tool = Rando(toolChange);
+
         document.getElementById("tool-name").textContent = tool.name;
         document.getElementById("tool-image").src = tool.image;
-        const maylay = Rando(melee);
+
+        const meleeChange = melee.filter(w => 
+            enableMelee.has(w.name)
+        );
+
+        if (meleeChange.length === 0) {
+            alert("No melee selected, dummy. Leave at least one enabled if you don't want to randomize melee.")
+            return;
+        }
+
+        const maylay = Rando(meleeChange);
+
         document.getElementById("melee-name").textContent = maylay.name;
         document.getElementById("melee-image").src = maylay.image;  
     });
@@ -579,11 +663,136 @@
     document.getElementById("rundown-image").src = result.image;
 });
 
+    // setting what page is shown
+    function showPage(page) {
+        const rando = document.getElementById("rando");
+        const settings = document.getElementById("settings");
+
+        if (page === "rando") {
+            rando.style.display = "block";
+            settings.style.display = "none";
+        } else {
+            rando.style.display = "none";
+            settings.style.display = "block";
+        }
+    }
+    // creating checkboxed and removing and adding from randomization depending on if checked or not
+    function MainWeaponSettings() {
+        const container = document.getElementById("main-weapon-settings");
+
+        mainWeapons.forEach(weapon => {
+
+            const label = document.createElement("label");
+            label.style.display = "block";
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = true;
+
+            checkbox.addEventListener("change", function() {
+
+                if (this.checked) {
+                    enableMainWeapons.add(weapon.name);
+                } else {
+                    enableMainWeapons.delete(weapon.name);
+                }
+            });
+            
+        label.appendChild(checkbox);
+        label.append(" " + weapon.name);
+
+        container.appendChild(label);
+        });
+
+    }
+
+    function SpecialWeaponSettings() {
+        const container = document.getElementById("special-weapon-settings");
+
+        specialWeapons.forEach(weapon => {
+
+            const label = document.createElement("label");
+            label.style.display = "block";
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = true;
+
+            checkbox.addEventListener("change", function() {
+
+                if (this.checked) {
+                    enableSpecialWeapons.add(weapon.name);
+                } else {
+                    enableSpecialWeapons.delete(weapon.name);
+                }
+            });
+            label.appendChild(checkbox);
+            label.append(" " + weapon.name);
+
+            container.appendChild(label);
+        });
+    }
+
+    function ToolSettings() {
+        const container = document.getElementById("tool-settings");
+
+        tools.forEach(tool => {
+
+            const label = document.createElement("label");
+            label.style.display = "block";
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = true;
+
+            checkbox.addEventListener("change", function() {
+
+                if (this.checked) {
+                    enableTools.add(tool.name);
+                } else {
+                    enableTools.delete(tool.name)
+                }
+            });
+            label.appendChild(checkbox);
+            label.append(" " + tool.name);
+
+            container.appendChild(label);
+        });
+    }
+
+    function MeleeSettings() {
+        const container = document.getElementById("melee-settings");
+
+        melee.forEach(melee => {
+
+            const label = document.createElement("label");
+            label.style.display = "block";
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = true;
+
+            checkbox.addEventListener("change", function() {
+
+                if (this.checked) {
+                    enableMelee.add(melee.name);
+                } else {
+                    enableMelee.delete(melee.name)
+                }
+            });
+            label.appendChild(checkbox);
+            label.append(" " + melee.name);
+
+            container.appendChild(label);
+        });
+    }
+
+    MainWeaponSettings();
+    SpecialWeaponSettings();
+    ToolSettings();
+    MeleeSettings();
     </script>
-    <!-- background video -->
-    <video autoplay muted loop id="bgv">
-        <source src="video/bgvid.mp4">
-    </video>
+
 </body>
 
 
