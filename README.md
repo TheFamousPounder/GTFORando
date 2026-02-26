@@ -5,7 +5,7 @@ TODO:
 
 Cosmetic Randomizer
 
-Add toggles Cosmetics.
+Add toggles for Cosmetics.
 
 Fix up UI issues
 
