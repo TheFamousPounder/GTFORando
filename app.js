@@ -19,13 +19,20 @@ function randomizeCategory(dataArray, enabledSet, nameId, imageId, label) {
 function showPage(page) {
     const rando = document.getElementById("rando");
     const settings = document.getElementById("settings");
+    const cosmorando = document.getElementById("cosmorando");
 
     if (page === "rando") {
         rando.style.display = "block";
         settings.style.display = "none";
+        cosmorando.style.display = "none";
+    } else if (page === "cosmorando") {
+        rando.style.display = "none";
+        settings.style.display = "none";
+        cosmorando.style.display = "block";
     } else {
         rando.style.display = "none";
         settings.style.display = "block";
+        cosmorando.style.display = "none";
     }
 }
 
@@ -108,7 +115,15 @@ let enableMainWeapons = loadSettings("main-weapon-settings", mainWeapons);
 let enableSpecialWeapons = loadSettings("special-weapon-settings", specialWeapons);
 let enableTools = loadSettings("tool-settings", tools);
 let enableMelee = loadSettings("melee-settings", melee);
+
 let enableRundowns = loadSettings("rundowns", rundowns);
+
+// these do nothing right now but they will be used for the cosmetic randomizer settings page
+let enableHelmets = loadSettings("helmet-settings", helmet);
+let enableTorso = loadSettings("torso-settings", torso);
+let enableLegs = loadSettings("legs-settings", legs);
+let enableBackpacks = loadSettings("backpack-settings", backpack);
+let enablePalettes = loadSettings("palette-settings", pallete);
 
 createWeaponSettings(mainWeapons, "main-weapon-settings", enableMainWeapons);
 createWeaponSettings(specialWeapons, "special-weapon-settings", enableSpecialWeapons);
@@ -117,11 +132,19 @@ createWeaponSettings(melee, "melee-settings", enableMelee);
 createRundownSettings();
 
 // Randomizer button
-    document.getElementById("randomize").addEventListener("click", function() {
+document.getElementById("randomize").addEventListener("click", function() {
     randomizeCategory(mainWeapons, enableMainWeapons, "main-name", "main-image", "Main Weapons");
     randomizeCategory(specialWeapons, enableSpecialWeapons, "special-name", "special-image", "Special Weapons");
     randomizeCategory(tools, enableTools, "tool-name", "tool-image", "Tools");
     randomizeCategory(melee, enableMelee, "melee-name", "melee-image", "Melee");
+});
+
+document.getElementById("cosmetic-randomize").addEventListener("click", function() {
+    randomizeCategory(helmet, enableHelmets, "helmet-name", "helmet-image", "Helmets");
+    randomizeCategory(torso, enableTorso, "torso-name", "torso-image", "Torso");
+    randomizeCategory(legs, enableLegs, "legs-name", "legs-image", "Legs");
+    randomizeCategory(backpack, enableBackpacks, "backpack-name", "backpack-image", "Backpacks");
+    randomizeCategory(pallete, enablePalettes, "palette-name", "palette-image", "Palettes");
 });
 
 // Rundown Randomizer
