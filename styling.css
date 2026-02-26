@@ -1,0 +1,104 @@
+body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #eee;
+            text-align: center;
+        }
+
+        #loadout {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2em;
+            margin-top: 3em;
+            min-height: 35em;
+        }
+
+        .equipment {
+            background-color: #1c1c1c;
+            padding: 2em;
+            border-radius: 10px;
+            min-height: 20em;
+            max-height: 30em;
+            width: 12%;
+        }
+        
+        .equipment img {
+            margin-top: 20px;
+            margin-bottom:20px;
+            border-radius: 8px;
+            max-width: 80%;
+            min-width: 50%;
+            max-height: 70%;
+            min-height: 20%;
+            justify-content: center;
+        }
+
+        .equipment_topdivider {
+            height:30%
+        }
+
+        .equipment_bottomdivider {
+            margin-bottom: 20px;
+            height:90%;
+        }
+
+        button {
+            margin-top: 30px;
+            padding: 10px, 20px;
+            font-size: 24px;
+            background-color: #2a2a2a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+        select {
+            padding: 8px;
+            font-size: 16px;
+            background-color: #2a2a2a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+
+        #bgv {
+        position: fixed;
+        z-index: -1;
+        left: 0px;
+        top: 0px;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        pointer-events: none;
+        opacity: 5%;
+        }
+
+        #rundown-image {
+            justify-items: center;
+            min-width: 20em;
+            max-width: 50em;
+            min-height: 20em;
+        }
+
+        #rundown-screen {
+            margin-top: 5em;
+        }
+
+        #rundown-settings {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .rundown-column {
+            display: flex;
+            flex-direction: column;
+        }
+        .rundown-column h3 {
+            margin-bottom: 8px;
+        }
