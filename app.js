@@ -36,22 +36,46 @@ function showPage(page) {
     }
 }
 
+// PreCache images to prevent stuttering
 function preLoadAllImages() {
-    let list = [];
-    let validEntryList = [mainWeapons, specialWeapons, tools, melee, rundowns];
 
-    validEntryList.forEach(category => {
-        category.forEach(item => {
-            if (item.image) list.push(item.image);
-        });
-    });
+        // list definition as safety precaution
+        let list = [];
 
-    list.forEach(src => {
-        let img = new Image();
-        img.src = src;
-    });
-    console.log("Images precached.");
-}
+        // Fill in entries from existing arrays
+        let validEntryList = [mainWeapons, specialWeapons, tools, melee, rundowns, helmet, torso, legs, backpack, pallete];
+
+        // Loop over constants containing data
+        for (let i = 0; i < validEntryList.length; i++) {
+            for (let j = 0; j < validEntryList[i].length; j++) {
+
+                // Push into list Array if image string exists
+                if (validEntryList[i][j].image != undefined) {
+                    list.push(validEntryList[i][j].image);
+                }
+
+            }
+        }
+
+        // Load the images and remove them from memory
+        for (let i = 0; i < list.length; i++) {
+
+            let img = new Image();
+
+            // Define load functionality to remove themselves
+            img.onload = function() {
+                let index = list.indexOf(this);
+                if (index  !== -1) {
+                    list.splice(index, 1);
+                }
+            }
+
+            // Set src so they actually load
+            img.src = list[i];
+        }
+
+        console.log("Images were precached succesfully");
+    }
 
 function loadSettings(key, array) {
     const saved = localStorage.getItem(key);
