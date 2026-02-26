@@ -3,11 +3,9 @@ A web based randomizer for the game GTFO by 10 Chambers. Not many choices right 
 
 TODO:
 
-Save randomization settings
-
 Cosmetic Randomizer
 
-Add toggles for Rundows, and Cosmetics.
+Add toggles Cosmetics.
 
 Fix up UI issues
 
