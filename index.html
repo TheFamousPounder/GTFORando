@@ -98,6 +98,7 @@
             margin-top: 5em;
         }
 
+        /* This part works now if you uncomment these */
         /* #top {
         position: fixed;
         top: 0;
@@ -109,6 +110,10 @@
         justify-content: center;
         gap: 20px;
         z-index: 1000;
+        } 
+
+        #bottom {
+            margin-top: 12vh;
         } */
 
     </style>
@@ -119,110 +124,112 @@
         <button onclick="showPage('rando')">Randomizer</button>
         <button onclick="showPage('settings')">Settings</button>
     </div>
-    <div id="rando">
-    <!-- static text and setting up rando text and images -->
-    <h1 style="margin-top:1.2em">GTFO Randomizer</h1>
+    <div id="bottom">
+        <div id="rando">
+        <!-- static text and setting up rando text and images -->
+        <h1 style="margin-top:1.2em">GTFO Randomizer</h1>
 
-    <div id="loadout">
-    
-        <div class="equipment">
-            <div class="equipment_topdivider">
-                <h2>Main weapon</h2>
-                <p id="main-name">Not selected</p>
-            </div>
-            <div class="equipment_bottomdivider">
-                <img id="main-image" src="" alt="Main Weapon Image" width="200">
-            </div>
-        </div>
-
-        <div class="equipment">
-            <div class="equipment_topdivider">
-                <h2>Special weapon</h2>
-                <p id="special-name">Not selected</p>
-            </div>
-            <div class="equipment_bottomdivider">
-                <img id="special-image" src="" alt="Special Weapon Image" width="200">
-            </div>
-        </div>
+        <div id="loadout">
         
-        <div class="equipment">
-            <div class="equipment_topdivider">
-                <h2>Tool</h2>
-                <p id="tool-name">Not Selected</p>
+            <div class="equipment">
+                <div class="equipment_topdivider">
+                    <h2>Main weapon</h2>
+                    <p id="main-name">Not selected</p>
+                </div>
+                <div class="equipment_bottomdivider">
+                    <img id="main-image" src="" alt="Main Weapon Image" width="200">
+                </div>
             </div>
-            <div class="equipment_bottomdivider">
-                <img id="tool-image" src="" alt="Tool Image" width="200">
+
+            <div class="equipment">
+                <div class="equipment_topdivider">
+                    <h2>Special weapon</h2>
+                    <p id="special-name">Not selected</p>
+                </div>
+                <div class="equipment_bottomdivider">
+                    <img id="special-image" src="" alt="Special Weapon Image" width="200">
+                </div>
+            </div>
+            
+            <div class="equipment">
+                <div class="equipment_topdivider">
+                    <h2>Tool</h2>
+                    <p id="tool-name">Not Selected</p>
+                </div>
+                <div class="equipment_bottomdivider">
+                    <img id="tool-image" src="" alt="Tool Image" width="200">
+                </div>
+            </div>
+            
+            <div class="equipment">
+                <div class="equipment_topdivider">
+                    <h2>Melee</h2>
+                    <p id="melee-name">Not selected</p>
+                </div>
+                <div class="equipment_bottomdivider">
+                    <img id="melee-image" src="" alt="Melee Image" width="200">
+                </div>
             </div>
         </div>
+        <br>
+        <div style="height:10%">
+            <button id="randomize">Randomize Hell</button>
+        </div>
+
+        <!-- rundown randomizer text and dropdown menu-->
+        <div id="rundown-screen">
+            <h1>Rundown Randomizer</h1>
+
         
-        <div class="equipment">
-            <div class="equipment_topdivider">
-                <h2>Melee</h2>
-                <p id="melee-name">Not selected</p>
-            </div>
-            <div class="equipment_bottomdivider">
-                <img id="melee-image" src="" alt="Melee Image" width="200">
+            <label for="rundown-select">Rundown</label>
+            <br><br>
+
+            <select id="rundown-select">
+                <option value="all">All rundowns</option>
+                <option value="1">Rundown 1</option>
+                <option value="2">Rundown 2</option>
+                <option value="3">Rundown 3</option>
+                <option value="4">Rundown 4</option>
+                <option value="5">Rundown 5</option>
+                <option value="6">Rundown 6</option>
+                <option value="7">Rundown 7</option>
+                <option value="8">Rundown 8</option>
+            </select>
+            <br><br>
+
+            <button id="rundown-randomize">Randomize Rundown</button>
+            <!-- place holder until randomized-->
+            <h2 id="rundown-result">Not selected</h2>
+            <img id="rundown-image" src="" width="300">
             </div>
         </div>
-    </div>
-    <br>
-    <div style="height:10%">
-        <button id="randomize">Randomize Hell</button>
-    </div>
 
-    <!-- rundown randomizer text and dropdown menu-->
-     <div id="rundown-screen">
-        <h1>Rundown Randomizer</h1>
+            <!-- background video -->
+        <video autoplay muted loop id="bgv">
+            <source src="video/bgvid.mp4">
+        </video>
+        <div id="settings" style="display:none; margin-top: 80px;">
+            <h1>Deselect weapons</h1>
 
-    
-        <label for="rundown-select">Rundown</label>
-        <br><br>
+            <h1>Main weapoons</h1>
+            <div id="main-weapon-settings"></div>
+            <h1>Special Weapons</h1>
+            <div id="special-weapon-settings"></div>
+            <h1>Tools</h1>
+            <div id="tool-settings"></div>
+            <h1>Melee</h1>
+            <h6>if you really hate sledge or something I guess ?</h6>
+            <div id="melee-settings"></div>
 
-        <select id="rundown-select">
-            <option value="all">All rundowns</option>
-            <option value="1">Rundown 1</option>
-            <option value="2">Rundown 2</option>
-            <option value="3">Rundown 3</option>
-            <option value="4">Rundown 4</option>
-            <option value="5">Rundown 5</option>
-            <option value="6">Rundown 6</option>
-            <option value="7">Rundown 7</option>
-            <option value="8">Rundown 8</option>
-        </select>
-        <br><br>
-
-        <button id="rundown-randomize">Randomize Rundown</button>
-        <!-- place holder until randomized-->
-        <h2 id="rundown-result">Not selected</h2>
-        <img id="rundown-image" src="" width="300">
+            <button onclick="showPage('rando')">Randomizer</button>
         </div>
-    </div>
-
-        <!-- background video -->
-    <video autoplay muted loop id="bgv">
-        <source src="video/bgvid.mp4">
-    </video>
-    <div id="settings" style="display:none; margin-top: 80px;">
-        <h1>Deselect weapons</h1>
-
-        <h1>Main weapoons</h1>
-        <div id="main-weapon-settings"></div>
-        <h1>Special Weapons</h1>
-        <div id="special-weapon-settings"></div>
-        <h1>Tools</h1>
-        <div id="tool-settings"></div>
-        <h1>Melee</h1>
-        <h6>if you really hate sledge or something I guess ?</h6>
-        <div id="melee-settings"></div>
-
-        <button onclick="showPage('rando')">Randomizer</button>
     </div>
     <script>
         // All equipment names and rundowns with images 
         const mainWeapons = [
             {
             name: "Pistol",
-            image: "images/weapons/weapons/pistol.png"
+            image: "images/weapons/pistol.png"
             },
 
             {
@@ -566,8 +573,6 @@
             }
         }
 
-        console.log(list);
-
         // Load the images and remove them from memory
         for (let i = 0; i < list.length; i++) {
 
@@ -585,7 +590,7 @@
             img.src = list[i];
         }
 
-        console.log("Images were precached");
+        console.log("Images were precached succesfully");
     }
 
     document.getElementById("randomize").addEventListener("click", function() {
@@ -676,12 +681,13 @@
             settings.style.display = "block";
         }
     }
+
     // creating checkboxed and removing and adding from randomization depending on if checked or not
-    function MainWeaponSettings() {
-        const container = document.getElementById("main-weapon-settings");
 
-        mainWeapons.forEach(weapon => {
+    function createWeaponSettings(array, elementString, set) {
+        const container = document.getElementById(elementString);
 
+        array.forEach(weapon => {
             const label = document.createElement("label");
             label.style.display = "block";
 
@@ -692,40 +698,12 @@
             checkbox.addEventListener("change", function() {
 
                 if (this.checked) {
-                    enableMainWeapons.add(weapon.name);
+                    set.add(weapon.name);
                 } else {
-                    enableMainWeapons.delete(weapon.name);
+                    set.delete(weapon.name);
                 }
             });
-            
-        label.appendChild(checkbox);
-        label.append(" " + weapon.name);
 
-        container.appendChild(label);
-        });
-
-    }
-
-    function SpecialWeaponSettings() {
-        const container = document.getElementById("special-weapon-settings");
-
-        specialWeapons.forEach(weapon => {
-
-            const label = document.createElement("label");
-            label.style.display = "block";
-
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.checked = true;
-
-            checkbox.addEventListener("change", function() {
-
-                if (this.checked) {
-                    enableSpecialWeapons.add(weapon.name);
-                } else {
-                    enableSpecialWeapons.delete(weapon.name);
-                }
-            });
             label.appendChild(checkbox);
             label.append(" " + weapon.name);
 
@@ -733,64 +711,12 @@
         });
     }
 
-    function ToolSettings() {
-        const container = document.getElementById("tool-settings");
+    // init each type
+    createWeaponSettings(mainWeapons, "main-weapon-settings", enableMainWeapons);
+    createWeaponSettings(specialWeapons, "special-weapon-settings", enableSpecialWeapons);
+    createWeaponSettings(tools, "tool-settings", enableTools);
+    createWeaponSettings(melee, "melee-settings", enableMelee);
 
-        tools.forEach(tool => {
-
-            const label = document.createElement("label");
-            label.style.display = "block";
-
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.checked = true;
-
-            checkbox.addEventListener("change", function() {
-
-                if (this.checked) {
-                    enableTools.add(tool.name);
-                } else {
-                    enableTools.delete(tool.name)
-                }
-            });
-            label.appendChild(checkbox);
-            label.append(" " + tool.name);
-
-            container.appendChild(label);
-        });
-    }
-
-    function MeleeSettings() {
-        const container = document.getElementById("melee-settings");
-
-        melee.forEach(melee => {
-
-            const label = document.createElement("label");
-            label.style.display = "block";
-
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.checked = true;
-
-            checkbox.addEventListener("change", function() {
-
-                if (this.checked) {
-                    enableMelee.add(melee.name);
-                } else {
-                    enableMelee.delete(melee.name)
-                }
-            });
-            label.appendChild(checkbox);
-            label.append(" " + melee.name);
-
-            container.appendChild(label);
-        });
-    }
-
-    MainWeaponSettings();
-    SpecialWeaponSettings();
-    ToolSettings();
-    MeleeSettings();
     </script>
 
 </body>
