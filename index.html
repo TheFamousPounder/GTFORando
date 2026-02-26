@@ -14,6 +14,7 @@
     <div id="top">
         <button onclick="showPage('rando')">Randomizer</button>
         <button onclick="showPage('settings')">Settings</button>
+        <button onclick="showPage('cosmorando')">Cosmetic randomizer</button>
     </div>
     <div id="bottom">
         <div id="rando">
@@ -119,9 +120,71 @@
 
             <button onclick="showPage('rando')">Randomizer</button>
         </div>
+
+        <div id="cosmorando" style="display: none; margin-top: 80px;">
+            <h1>Cosmetic randomizer</h1>
+        <div id="loadout">
+                <div class="equipment">
+                    <div class="equipment_topdivider">
+                        <h2>Helmet</h2>
+                        <p id="helmet-name">Not selected</p>
+                    </div>
+                    <div class="equipment_bottomdivider">
+                        <img id="helmet-image" src="" alt="Helmet Image" width="200">
+                    </div>
+                </div>
+                
+                <div class="equipment">
+                    <div class="equipment_topdivider">
+                        <h2>Torso</h2>
+                        <p id="torso-name">Not selected</p>
+                    </div>
+                    
+
+                    <div class="equipment_bottomdivider">
+                        <img id="torso-image" src="" alt="Torso Image" width="200">
+                    </div>
+                </div>
+
+                <div class="equipment">
+                    <div class="equipment_topdivider">
+                        <h2>Legs</h2>
+                        <p id="legs-name">Not selected</p>
+                    </div>
+
+                    <div class="equipment_bottomdivider">
+                        <img id="legs-image" src="" alt="Legs Image" width="200">
+                    </div>
+                </div>
+
+                <div class="equipment">
+                    <div class="equipment_topdivider">
+                        <h2>Backpack</h2>
+                        <p id="backpack-name">Not selected</p>
+                    </div>
+
+                    <div class="equipment_bottomdivider">
+                        <img id="backpack-image" src="" alt="Backpack Image" width="200">
+                    </div>
+                </div>
+                <div class="equipment">
+                    <div class="equipment_topdivider">
+                        <h2>Palette</h2>
+                        <p id="palette-name">Not selected</p>
+                    </div>
+
+                    <div class="equipment_bottomdivider">
+                        <img id="palette-image" src="" alt="Palette Image" width="200">
+                    </div>
+                </div>
+            </div>
+                <div style="height:10%;">
+                    <button id="cosmetic-randomize">Randomize Cosmetics</button>
+            </div>
+                </div>
     </div>
 
-    <script src="data.js"></script>,
+    <script src="data.js"></script>
     <script src="app.js"></script>
 
 </body>
