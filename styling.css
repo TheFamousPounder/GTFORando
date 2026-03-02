@@ -65,7 +65,13 @@
             border: none;
             border-radius: 6px;
         }
-
+        .obj-icon {
+            width: 18px;
+            height: 18px;
+            vertical-align: middle;
+            margin: 0 5px;
+        }
+        
         #bgv {
         position: fixed;
         z-index: -1;
