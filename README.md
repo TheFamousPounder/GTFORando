@@ -3,9 +3,9 @@ A web based randomizer for the game GTFO by 10 Chambers. Not many choices right 
 
 TODO:
 
-Add toggles for Cosmetics.
+add reset button to settings
 
-Make unique randomization toggles. Ideas so far: force reroll. filter rundown by Main, Sec, Overload or PE. Adding a page where four loadout randomization are done at once, for use with friends or bot loadouts.
+Make unique randomization toggles. Ideas so far: force reroll.  Adding a page where four loadout randomization are done at once, for use with friends or bot loadouts.
 
 Fix up UI issues
 

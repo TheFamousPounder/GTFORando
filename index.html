@@ -88,7 +88,13 @@
                 <option value="8">Rundown 8</option>
             </select>
             <br><br>
-
+            <h3>Checks for if you only want levels with main only, main with secondary, or overload</h3>
+            <h4>These are ignored if Rundown 1-3 is selected</h4>
+            <div id="objective-filters">
+                <label><input type="checkbox" id="mainfilter"><img src="images/objv/main.png" class="obj-icon">Main only</label>
+                <label><input type="checkbox" id="secfilter"><img src="images/objv/sec.png" class="obj-icon">Has secondary</label>
+                <label><input type="checkbox" id="overloadfilter"><img src="images/objv/overload.png" class="obj-icon">Has overload</label>
+            </div>
             <button id="rundown-randomize">Randomize Rundown</button>
 
             <h2 id="rundown-result">Not selected</h2>
@@ -118,6 +124,17 @@
             <h1>Deselect rundows</h1>
             <div id="rundown-settings"></div>
 
+            <h1>Cosmetic settings</h1>
+            <h1>Helmets</h1>
+            <div id="helmet-settings"></div>
+            <h1>Torso</h1>
+            <div id="torso-settings"></div>
+            <h1>Legs</h1>
+            <div id="legs-settings"></div>
+            <h1>Backpack</h1>
+            <div id="backpack-settings"></div>
+            <h1>Palette</h1>
+            <div id="palette-settings"></div>
             <button onclick="showPage('rando')">Randomizer</button>
         </div>
 
