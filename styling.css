@@ -13,7 +13,14 @@
             margin-top: 3em;
             min-height: 35em;
         }
-
+        .player-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2em;
+            margin-top: 1em;
+            margin-bottom: 4em;
+        }
         .equipment {
             background-color: #1c1c1c;
             padding: 2em;
