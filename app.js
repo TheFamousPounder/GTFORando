@@ -1,40 +1,73 @@
+// creating a variable to keep rando results in memory
+let result = {};
+
 // the main randomizer function
 function Rando(array) {
     const index = Math.floor(Math.random() * array.length);
     return array[index];
 }
 
+
 function randomizeCategory(dataArray, enabledSet, nameId, imageId, label) {
-    const available = dataArray.filter(item => enabledSet.has(item.name));
+    const reroll = document.getElementById("reroll").checked;
+
+    let available = dataArray.filter(item => enabledSet.has(item.name));
 
     if (available.length === 0) {
         alert(`No ${label} selected. Enable at least one to randomize.`);
         return;
     }
+    if (reroll && result[nameId]) {
+        const pool = available.filter(item => item.name !== result[nameId]);
+
+        if (pool.length > 0) {
+            available = pool;
+        }
+    }
 
     const picked = Rando(available);
+
+    result[nameId] = picked.name;
     document.getElementById(nameId).textContent = picked.name;
     document.getElementById(imageId).src = picked.image;
 }
+
+document.getElementById("multirandomizer").addEventListener("click", function() {
+    for (let i = 1; i <= 4; i++) {
+        randomizeCategory(mainWeapons, enableMainWeapons, `p${i}-main-name`, `p${i}-main-image`, `Player ${i} Main Weapons`);
+        randomizeCategory(specialWeapons, enableSpecialWeapons, `p${i}-special-name`, `p${i}-special-image`, `Player ${i} Special Weapons`);
+        randomizeCategory(tools, enableTools, `p${i}-tool-name`, `p${i}-tool-image`, `Player ${i} Tools`);
+        randomizeCategory(melee, enableMelee, `p${i}-melee-name`, `p${i}-melee-image`, `Player ${i} Melee`);
+    }
+});
 
 // very riggidy way of switching pages
 function showPage(page) {
     const rando = document.getElementById("rando");
     const settings = document.getElementById("settings");
     const cosmorando = document.getElementById("cosmorando");
+    const multirando = document.getElementById("multi-rando");
 
     if (page === "rando") {
         rando.style.display = "block";
         settings.style.display = "none";
         cosmorando.style.display = "none";
+        multirando.style.display = "none";
     } else if (page === "cosmorando") {
         rando.style.display = "none";
         settings.style.display = "none";
         cosmorando.style.display = "block";
+        multirando.style.display = "none";
     } else if (page === "settings") {
         rando.style.display = "none";
         settings.style.display = "block";
         cosmorando.style.display = "none";
+        multirando.style.display = "none";
+    } else if (page === "multi-rando") {
+        rando.style.display = "none";
+        settings.style.display = "none";
+        cosmorando.style.display = "none";
+        multirando.style.display = "block";
     }
 }
 
@@ -84,43 +117,22 @@ function loadSettings(key, array) {
     return saved ? new Set(JSON.parse(saved)) : new Set(array.map(x => x.name));
 }
 // creating loadout settings
-// this and cosmetic can, and should, be combined
-function createWeaponSettings(array, elementId, set) {
+function createLoadoutSettings(array, elementId, set) {
     const container = document.getElementById(elementId);
 
-    array.forEach(weapon => {
+    array.forEach(loadout => {
         const label = document.createElement("label");
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
-        checkbox.checked = set.has(weapon.name);
+        checkbox.checked = set.has(loadout.name);
 
         checkbox.addEventListener("change", function() {
-            this.checked ? set.add(weapon.name) : set.delete(weapon.name);
+            this.checked ? set.add(loadout.name) : set.delete(loadout.name);
             localStorage.setItem(elementId, JSON.stringify(Array.from(set)));
         });
 
         label.appendChild(checkbox);
-        label.append(" " + weapon.name);
-        container.appendChild(label);
-    });
-}
-
-function createCosmeticSettings(array, elementId, set) {
-    const container = document.getElementById(elementId);
-
-    array.forEach(cosmetic => {
-        const label = document.createElement("label");
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = set.has(cosmetic.name);
-
-        checkbox.addEventListener("change", function() {
-            this.checked ? set.add(cosmetic.name) : set.delete(cosmetic.name);
-            localStorage.setItem(elementId, JSON.stringify(Array.from(set)));
-        });
-
-        label.appendChild(checkbox);
-        label.append(" " + cosmetic.name);
+        label.append(" " + loadout.name);
         container.appendChild(label);
     });
 }
@@ -165,23 +177,22 @@ let enableMelee = loadSettings("melee-settings", melee);
 
 let enableRundowns = loadSettings("rundowns", rundowns);
 
-// these do nothing right now but they will be used for the cosmetic randomizer settings page
 let enableHelmets = loadSettings("helmet-settings", helmet);
 let enableTorso = loadSettings("torso-settings", torso);
 let enableLegs = loadSettings("legs-settings", legs);
 let enableBackpacks = loadSettings("backpack-settings", backpack);
 let enablePalettes = loadSettings("palette-settings", palette);
 
-createWeaponSettings(mainWeapons, "main-weapon-settings", enableMainWeapons);
-createWeaponSettings(specialWeapons, "special-weapon-settings", enableSpecialWeapons);
-createWeaponSettings(tools, "tool-settings", enableTools);
-createWeaponSettings(melee, "melee-settings", enableMelee);
+createLoadoutSettings(mainWeapons, "main-weapon-settings", enableMainWeapons);
+createRundownSettings(specialWeapons, "special-weapon-settings", enableSpecialWeapons);
+createLoadoutSettings(tools, "tool-settings", enableTools);
+createLoadoutSettings(melee, "melee-settings", enableMelee);
 createRundownSettings();
-createCosmeticSettings(helmet, "helmet-settings", enableHelmets);
-createCosmeticSettings(torso, "torso-settings", enableTorso);
-createCosmeticSettings(legs, "legs-settings", enableLegs);
-createCosmeticSettings(backpack, "backpack-settings", enableBackpacks);
-createCosmeticSettings(palette, "palette-settings", enablePalettes);
+createLoadoutSettings(helmet, "helmet-settings", enableHelmets);
+createLoadoutSettings(torso, "torso-settings", enableTorso);
+createLoadoutSettings(legs, "legs-settings", enableLegs);
+createLoadoutSettings(backpack, "backpack-settings", enableBackpacks);
+createLoadoutSettings(palette, "palette-settings", enablePalettes);
 
 // Randomizer button
 document.getElementById("randomize").addEventListener("click", function() {
@@ -212,7 +223,7 @@ document.getElementById("rundown-randomize").addEventListener("click", function(
         
         const isEnabled = enableRundowns.has(r.name);
 
-        const isMainRundown = (selectedRundown === 1 || selectedRundown === 2 || selectedRundown === 3);
+        const isMainRundown = [1, 2, 3].includes(Number(selectedRundown));
         
         let matchesObjectives = true;
         
@@ -221,15 +232,23 @@ document.getElementById("rundown-randomize").addEventListener("click", function(
                 const ignore = r.objectives.includes("secondary");
                 if (ignore) matchesObjectives = false;
             }
-        if (filterSecondary && !r.objectives.includes("secondary")) matchesObjectives = false;
+        if (filterSecondary) {
+            const hasSec = r.objectives.includes("secondary");
+            const hasOverload = r.objectives.includes("overload");
+            
+            if (!hasSec || hasOverload) {
+                matchesObjectives = false;
+            }
+        }
         if (filterOverload && !r.objectives.includes("overload")) matchesObjectives = false;
         }
 
         return matchesDropdown && isEnabled && matchesObjectives;
     });
 
+    // instead of a snarky error, should make the others be unselectable
     if (filtered.length === 0) {
-        alert("Main only implies the existence of no secondary or overload objective, doesn't it?");
+        alert("One check at a time please");
         return;
     }
 
