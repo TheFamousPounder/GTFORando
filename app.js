@@ -7,9 +7,14 @@ function Rando(array) {
     return array[index];
 }
 
+function safeAddListener(id, event, fn) {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener(event, fn);
+}
+
 
 function randomizeCategory(dataArray, enabledSet, nameId, imageId, label) {
-    const reroll = document.getElementById("reroll").checked;
+    const reroll = document.getElementById("reroll")?.checked ?? false;
 
     let available = dataArray.filter(item => enabledSet.has(item.name));
 
@@ -28,11 +33,15 @@ function randomizeCategory(dataArray, enabledSet, nameId, imageId, label) {
     const picked = Rando(available);
 
     result[nameId] = picked.name;
-    document.getElementById(nameId).textContent = picked.name;
-    document.getElementById(imageId).src = picked.image;
+
+    const nameEl = document.getElementById(nameId);
+    const imageEl = document.getElementById(imageId);
+
+    if (nameEl) nameEl.textContent = picked.name;
+    if (imageEl) imageEl.src = picked.image;
 }
 
-document.getElementById("multirandomizer").addEventListener("click", function() {
+safeAddListener("multirandomizer", "click", function() {
     for (let i = 1; i <= 4; i++) {
         randomizeCategory(mainWeapons, enableMainWeapons, `p${i}-main-name`, `p${i}-main-image`, `Player ${i} Main Weapons`);
         randomizeCategory(specialWeapons, enableSpecialWeapons, `p${i}-special-name`, `p${i}-special-image`, `Player ${i} Special Weapons`);
@@ -170,39 +179,46 @@ function createRundownSettings() {
 
 
 // Initialize Sets
-let enableMainWeapons = loadSettings("main-weapon-settings", mainWeapons);
-let enableSpecialWeapons = loadSettings("special-weapon-settings", specialWeapons);
-let enableTools = loadSettings("tool-settings", tools);
-let enableMelee = loadSettings("melee-settings", melee);
+let enableMainWeapons = (typeof mainWeapons !== "undefined") ? loadSettings("main-weapon-settings", mainWeapons) : new Set();
+let enableSpecialWeapons = (typeof specialWeapons !== "undefined") ? loadSettings("special-weapon-settings", specialWeapons) : new Set();
+let enableTools = (typeof tools !== "undefined") ? loadSettings("tool-settings", tools) : new Set();
+let enableMelee = (typeof melee !== "undefined") ? loadSettings("melee-settings", melee) : new Set();
 
-let enableRundowns = loadSettings("rundowns", rundowns);
+let enableRundowns = (typeof rundowns !== "undefined") ? loadSettings("rundowns", rundowns) : new Set();
 
-let enableHelmets = loadSettings("helmet-settings", helmet);
-let enableTorso = loadSettings("torso-settings", torso);
-let enableLegs = loadSettings("legs-settings", legs);
-let enableBackpacks = loadSettings("backpack-settings", backpack);
-let enablePalettes = loadSettings("palette-settings", palette);
+let enableHelmets = (typeof helmet !== "undefined") ? loadSettings("helmet-settings", helmet) : new Set();
+let enableTorso = (typeof torso !== "undefined") ? loadSettings("torso-settings", torso) : new Set();
+let enableLegs = (typeof legs !== "undefined") ? loadSettings("legs-settings", legs) : new Set();
+let enableBackpacks = (typeof backpack !== "undefined") ? loadSettings("backpack-settings", backpack) : new Set();
+let enablePalettes = (typeof palette !== "undefined") ? loadSettings("palette-settings", palette) : new Set();
 
-createLoadoutSettings(mainWeapons, "main-weapon-settings", enableMainWeapons);
-createRundownSettings(specialWeapons, "special-weapon-settings", enableSpecialWeapons);
-createLoadoutSettings(tools, "tool-settings", enableTools);
-createLoadoutSettings(melee, "melee-settings", enableMelee);
-createRundownSettings();
-createLoadoutSettings(helmet, "helmet-settings", enableHelmets);
-createLoadoutSettings(torso, "torso-settings", enableTorso);
-createLoadoutSettings(legs, "legs-settings", enableLegs);
-createLoadoutSettings(backpack, "backpack-settings", enableBackpacks);
-createLoadoutSettings(palette, "palette-settings", enablePalettes);
+let enableToolAmp = (typeof toolamp !== "undefined") ? loadSettings("toolamp-settings", toolamp) : new Set();
+let enableSkillAmp = (typeof skillamp !== "undefined") ? loadSettings("skillamp-settings", skillamp) : new Set();
+let enableMed = (typeof medamp !== "undefined") ? loadSettings("med-settings", medamp) : new Set();
+let enableRigs = (typeof rigs !== "undefined") ? loadSettings("rig-settings", rigs) : new Set();
+
+
+// Only create settings UI where container exists and data exists
+if (typeof mainWeapons !== "undefined" && document.getElementById("main-weapon-settings")) createLoadoutSettings(mainWeapons, "main-weapon-settings", enableMainWeapons);
+if (typeof specialWeapons !== "undefined" && document.getElementById("special-weapon-settings")) createRundownSettings(specialWeapons, "special-weapon-settings", enableSpecialWeapons);
+if (typeof tools !== "undefined" && document.getElementById("tool-settings")) createLoadoutSettings(tools, "tool-settings", enableTools);
+if (typeof melee !== "undefined" && document.getElementById("melee-settings")) createLoadoutSettings(melee, "melee-settings", enableMelee);
+if (typeof rundowns !== "undefined" && document.getElementById("rundown-settings")) createRundownSettings();
+if (typeof helmet !== "undefined" && document.getElementById("helmet-settings")) createLoadoutSettings(helmet, "helmet-settings", enableHelmets);
+if (typeof torso !== "undefined" && document.getElementById("torso-settings")) createLoadoutSettings(torso, "torso-settings", enableTorso);
+if (typeof legs !== "undefined" && document.getElementById("legs-settings")) createLoadoutSettings(legs, "legs-settings", enableLegs);
+if (typeof backpack !== "undefined" && document.getElementById("backpack-settings")) createLoadoutSettings(backpack, "backpack-settings", enableBackpacks);
+if (typeof palette !== "undefined" && document.getElementById("palette-settings")) createLoadoutSettings(palette, "palette-settings", enablePalettes);
 
 // Randomizer button
-document.getElementById("randomize").addEventListener("click", function() {
+safeAddListener("randomize", "click", function() {
     randomizeCategory(mainWeapons, enableMainWeapons, "main-name", "main-image", "Main Weapons");
     randomizeCategory(specialWeapons, enableSpecialWeapons, "special-name", "special-image", "Special Weapons");
     randomizeCategory(tools, enableTools, "tool-name", "tool-image", "Tools");
     randomizeCategory(melee, enableMelee, "melee-name", "melee-image", "Melee");
 });
 
-document.getElementById("cosmetic-randomize").addEventListener("click", function() {
+safeAddListener("cosmetic-randomize", "click", function() {
     randomizeCategory(helmet, enableHelmets, "helmet-name", "helmet-image", "Helmets");
     randomizeCategory(torso, enableTorso, "torso-name", "torso-image", "Torso");
     randomizeCategory(legs, enableLegs, "legs-name", "legs-image", "Legs");
@@ -210,8 +226,14 @@ document.getElementById("cosmetic-randomize").addEventListener("click", function
     randomizeCategory(palette, enablePalettes, "palette-name", "palette-image", "Palettes");
 });
 
+safeAddListener("randomize-outlast", "click", function() {
+    randomizeCategory(toolamp, enableToolAmp, "toolamp-name", "toolamp-image", "Tool Amps");
+    randomizeCategory(skillamp, enableSkillAmp, "skillamp-name", "skillamp-image", "Skill Amps");
+    randomizeCategory(medamp, enableMed, "med-name", "med-image", "Meds");
+    randomizeCategory(rigs, enableRigs, "rig-name", "rig-image", "Rigs");
+});
 // Updated Rundown Randomizer
-document.getElementById("rundown-randomize").addEventListener("click", function() {
+safeAddListener("rundown-randomize", "click", function() {
     const selectedRundown = document.getElementById("rundown-select").value;
     
     const filterMain = document.getElementById("mainfilter").checked;
