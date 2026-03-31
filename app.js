@@ -87,7 +87,7 @@ function preLoadAllImages() {
         let list = [];
 
         // Fill in entries from existing arrays
-        let validEntryList = [mainWeapons, specialWeapons, tools, melee, rundowns, helmet, torso, legs, backpack, palette];
+        let validEntryList = [mainWeapons, specialWeapons, tools, melee, rundowns, helmet, torso, legs, backpack, palette, toolamp, skillamp, medamp, rigs];
 
         // Loop over constants containing data
         for (let i = 0; i < validEntryList.length; i++) {
