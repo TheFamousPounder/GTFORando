@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <!-- title and icon -->
+        <Title>Outlast Randomizer</Title>
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- linking css styling -->
+    <link rel="stylesheet" href="styling.css">
+</head>
+
+<body onload="preLoadAllImages()">
+    <div style="background-image: url('images/outlast/bg.png'); background-size: cover; background-position: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
+    <div id="top">
+        <a href="index.html">GTFO Randomizer</a>
+    </div>
+
+    <div id="bottom">
+        <div id="rando">
+        <h1 style="margin-top:1.2em">Outlast Randomizer</h1>
+        </div>
+            <div id="loadout">
+        
+            <div class="equipment">
+                <div class="equipment_topdivider">
+                    <h2>Tool Amp</h2>
+                    <p id="toolamp-name">Not selected</p>
+                </div>
+                <div class="equipment_bottomdivider">
+                    <img id="toolamp-image" src="" alt="Tool Amp Image" width="200">
+                </div>
+            </div>
+
+            <div class="equipment">
+                <div class="equipment_topdivider">
+                    <h2>Skill Amp</h2>
+                    <p id="skillamp-name">Not selected</p>
+                </div>
+                <div class="equipment_bottomdivider">
+                    <img id="skillamp-image" src="" alt="Skill Amp Image" width="200">
+                </div>
+            </div>
+            
+            <div class="equipment">
+                <div class="equipment_topdivider">
+                    <h2>Medicine Amp</h2>
+                    <p id="med-name">Not Selected</p>
+                </div>
+                <div class="equipment_bottomdivider">
+                    <img id="med-image" src="" alt="Medicine Amp Image" width="200">
+                </div>
+            </div>
+            
+            <div class="equipment">
+                <div class="equipment_topdivider">
+                    <h2>Rig</h2>
+                    <p id="rig-name">Not selected</p>
+                </div>
+                <div class="equipment_bottomdivider">
+                    <img id="rig-image" src="" alt="Rig Image" width="200">
+                </div>
+            </div>
+        </div>
+        <br>
+        <label><input type="checkbox" id="reroll"></input>Force reroll</label>
+        <div style="height:10%">
+            <button id="randomize-outlast">Randomize Theraphy</button>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

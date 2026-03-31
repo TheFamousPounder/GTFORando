@@ -846,3 +846,146 @@
                 image: "images/cosmetics/palette/29.png"
             }
         ]
+
+        const toolamp = [
+                    {
+                        name: "Slippers",
+                        image: "images/outlast/tool/1.png"
+                    },
+                    {
+                        name: "Cacophony",
+                        image: "images/outlast/tool/2.png"
+                    },
+                    {
+                        name: "Noise Reduction",
+                        image: "images/outlast/tool/3.png"
+                    },
+                    {
+                        name: "Battery Charger",
+                        image: "images/outlast/tool/4.png"
+                    },
+                    {
+                        name: "Lock Breaker",
+                        image: "images/outlast/tool/5.png"
+                    },
+                    {
+                        name: "Recycle",
+                        image: "images/outlast/tool/6.png"
+                    },
+                    {
+                        name: "Key Master",
+                        image: "images/outlast/tool/7.png"
+                    },
+                    {
+                        name: "Backpack",
+                        image: "images/outlast/tool/8.png"
+                    },
+                    {
+                        name: "Short Circuit",
+                        image: "images/outlast/tool/9.png"
+                    }
+                ]
+
+        const skillamp = [
+                    {
+                        name: "Hide and Breathe",
+                        image: "images/outlast/skill/1.png"
+                    },
+                    {
+                        name: "Hide and Heal",
+                        image: "images/outlast/skill/2.png"
+                    },
+                    {
+                        name: "Hide and Restore",
+                        image: "images/outlast/skill/3.png"
+                    },
+                    {
+                        name: "Quick Escape",
+                        image: "images/outlast/skill/4.png"
+                    },
+                    {
+                        name: "Invisible",
+                        image: "images/outlast/skill/5.png"
+                    },
+                    {
+                        name: "Door Trap Breaker",
+                        image: "images/outlast/skill/6.png"
+                    },
+                    {
+                        name: "Smash",
+                        image: "images/outlast/skill/7.png"
+                    },
+                    {
+                        name: "Strong Arm",
+                        image: "images/outlast/skill/8.png"
+                    },
+                    {
+                        name: "Evasive Maneuver",
+                        image: "images/outlast/skill/9.png"
+                    }
+                ]
+
+        const medamp = [
+                    {
+                        name: "Double Doses",
+                        image: "images/outlast/med/1.png"
+                    },
+                    {
+                        name: "Antitoxin",
+                        image: "images/outlast/med/2.png"
+                    },
+                    {
+                        name: "Surplus",
+                        image: "images/outlast/med/3.png"
+                    },
+                    {
+                        name: "Last Chance",
+                        image: "images/outlast/med/4.png"
+                    },
+                    {
+                        name: "Incognito",
+                        image: "images/outlast/med/5.png"
+                    },
+                    {
+                        name: "Good Job",
+                        image: "images/outlast/med/6.png"
+                    },
+                    {
+                        name: "Boosted",
+                        image: "images/outlast/med/7.png"
+                    },
+                    {
+                        name: "Self Revive",
+                        image: "images/outlast/med/8.png"
+                    },
+                    {
+                        name: "Bandage Expert",
+                        image: "images/outlast/med/9.png"
+                    }
+                ]
+        const rigs = [
+        {
+                name: "STUN",
+                image: "images/outlast/rigs/stun.png"
+            },
+            {
+                name: "BLIND",
+                image: "images/outlast/rigs/blind.png"
+            },
+            {
+                name: "HEAL",
+                image: "images/outlast/rigs/heal.png"
+            },
+            {
+                name: "X-RAY",
+                image: "images/outlast/rigs/xray.png"
+            },
+            {
+                name: "BARRICADE",
+                image: "images/outlast/rigs/barricade.png"
+            },
+            {
+                name: "JAMMER",
+                image: "images/outlast/rigs/jammer.png"
+            }
+        ]
